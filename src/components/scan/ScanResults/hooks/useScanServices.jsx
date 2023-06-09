@@ -12,7 +12,6 @@ export const useScanServices = () => {
 
   const getScan = () => {
     setScanLoading(true)
-    setTimeout(() => { 
       serviceGetScan()
         .then((data) => {
           const preparedData = {
@@ -32,7 +31,6 @@ export const useScanServices = () => {
         .finally(() => {
           setScanLoading(false)
         })
-    }, 5000)
   }
 
   return {
