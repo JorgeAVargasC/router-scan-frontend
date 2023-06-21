@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es6",
+    "module": "commonjs",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/contexts/*": ["./src/contexts/*"],
+      "@/config/*": ["./src/config/*"],
+      "@/layouts/*": ["./src/layouts/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/routes/*": ["./src/routes/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/pages/*": ["./src/pages/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/images/*": ["./src/assets/images/*"],
+      "@/docs/*": ["./src/assets/docs/*"],
+      "@/icons/*": ["./src/assets/icons/*"],
+      "@/videos/*": ["./src/assets/videos/*"],
+    },
+  },
+  "exclude": ["node_modules", "build", "dist"]  
+}

@@ -10,7 +10,7 @@ import { Loading } from '@/components/general'
 // const Scan = lazy(() => import('@/pages/scan'))
 const Home = lazy(() => import('@/pages/home'))
 const NotFound = lazy(() => import('@/pages/not-found'))
-// const Styles = lazy(() => import('@/pages/styles'))
+const Styles = lazy(() => import('@/pages/styles'))
 
 export const AppRoutes = () => {
   const { LINKS_MAIN } = Links
@@ -24,10 +24,10 @@ export const AppRoutes = () => {
       ...LINKS_MAIN.HOME,
       element: <Home />,
     },
-    // {
-    //   ...LINKS_MAIN.STYLES,
-    //   element: <Styles />,
-    // },
+    {
+      ...LINKS_MAIN.STYLES,
+      element: <Styles />,
+    },
     {
       ...LINKS_MAIN.NOT_FOUND,
       element: <NotFound />,

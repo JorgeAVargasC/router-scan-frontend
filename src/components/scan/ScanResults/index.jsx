@@ -1,24 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { scanLoadingState, scanState } from '@/contexts'
+import { useState } from 'react'
 
-import { useRecoilState } from 'recoil'
-
-import { ScanButton, ScanInfo } from './components'
-
-import { useScanServices } from './hooks'
+import { AllScan, Scan, Tabs } from './components'
 
 export const ScanResults = () => {
-  const [scan] = useRecoilState(scanState)
-  const [scanLoading] = useRecoilState(scanLoadingState)
-
-  const { getScan } = useScanServices()
+  const [currentView, setCurrentView] = useState(1)
 
   return (
-    <div className='flex flex-col gap-10 items-center justify-center'>
-      <ScanButton onClick={getScan} loading={scanLoading} />
-      {scan && !scanLoading && (
-        <ScanInfo vendor={scan?.vendor} vulnerabilities={scan?.vulnerabilities} />
-      )}
-    </div>
+    <>
+      <Tabs currentView={currentView} setCurrentView={setCurrentView} />
+
+      {currentView === 1 && <Scan />}
+
+      {currentView === 2 && <AllScan />}
+    </>
   )
 }

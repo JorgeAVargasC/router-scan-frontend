@@ -5,6 +5,11 @@ export const scanState = atom({
   default: null,
 })
 
+export const allScansState = atom({
+  key: 'allScans',
+  default: null,
+})
+
 export const scanLoadingState = atom({
   key: 'scanLoading',
   default: false,

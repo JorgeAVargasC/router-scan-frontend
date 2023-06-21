@@ -7,7 +7,7 @@ export class Links {
     },
     SCAN: {
       path: '/scan',
-      label: 'Scan',
+      label: 'All Scans',
       to: '/scan',
     },
     STYLES: {
