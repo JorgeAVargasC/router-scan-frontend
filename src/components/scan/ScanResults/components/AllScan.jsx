@@ -26,7 +26,11 @@ export const AllScan = () => {
     title: scan.vendor,
     children: <ResumeSection key={index} scan={scan} />,
     tags: [
-      <Tags key={index} color='sky' message={scan?.vulnerabilities.length.toString()} />,
+      <Tags
+        key={index}
+        color='sky'
+        message={scan?.vulnerabilities.length.toString()}
+      />,
     ],
     icon: 'router',
   }))
@@ -40,7 +44,10 @@ export const AllScan = () => {
           {allScans?.length === 0 ? (
             <p>No scans found</p>
           ) : (
-            <Accordion sections={sections} />
+            <>
+              <span className='mb-4'>{`${allScans?.length} Results`}</span>
+              <Accordion sections={sections} />
+            </>
           )}
         </div>
       )}
