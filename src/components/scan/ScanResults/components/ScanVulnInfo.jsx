@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types'
 
 import { Accordion, Tags } from '@/components/general'
+import React from 'react'
 
 export const ScanVulnInfo = ({
   cve = 'CVE-0000-0000',
@@ -28,7 +29,7 @@ export const ScanVulnInfo = ({
   const sections = recommendations.map((recommendation, index) => ({
     title: `${index + 1}. ${recommendation.name}`,
     children: (
-      <div className='flex flex-col gap-2 text-justify'>
+      <div key={index} className='flex flex-col gap-2 text-justify'>
         <div className='flex flex-col gap-1'>
           <h6 className='uppercase'>Prerequisites</h6>
           <p className='text-slate-400'>{recommendation.prerequisites}</p>
@@ -51,12 +52,12 @@ export const ScanVulnInfo = ({
   return (
     <div className='grid grid-cols-2 gap-x-5 gap-y-8'>
       {items.map((item, index) => (
-        <>
+        <React.Fragment key={index}  >
           {item.title === 'Recommendations' ? (
             <div className='flex flex-col gap-4 col-span-2'>
               <div className=' flex items-center justify-between'>
                 <div className='uppercase font-bold'>{item.title}</div>
-                <Tags color='sky' message={item.content.length} />
+                <Tags color='sky' message={item.content.length.toString()} />
               </div>
               <div className=''>
                 <Accordion sections={sections} />
@@ -73,7 +74,7 @@ export const ScanVulnInfo = ({
               <div className='text-slate-300 text-justify'>{item.content}</div>
             </div>
           )}
-        </>
+        </React.Fragment>
       ))}
     </div>
   )

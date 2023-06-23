@@ -3,9 +3,10 @@ import { allScansState, scanLoadingState } from '@/contexts'
 
 import { useEffect } from 'react'
 
+import PropTypes from 'prop-types'
 import { useRecoilState } from 'recoil'
 
-import { Loading } from '@/components/general'
+import { Accordion, Loading, Tags } from '@/components/general'
 
 import { useScanServices } from '../hooks'
 
@@ -21,34 +22,50 @@ export const AllScan = () => {
     getAllScans()
   }, [])
 
+  const sections = allScans?.map((scan, index) => ({
+    title: scan.vendor,
+    children: <ResumeSection key={index} scan={scan} />,
+    tags: [
+      <Tags key={index} color='sky' message={scan?.vulnerabilities.length.toString()} />,
+    ],
+    icon: 'router',
+  }))
+
   return (
     <div className='flex flex-col items-center'>
       {scanLoading ? (
         <Loading />
       ) : (
-        <div className='w-full flex flex-col gap-4'>
-          {allScans?.map((scan, index) => (
-            <div
-              className='w-full flex flex-col items-start border p-4 gap-8 rounded-md'
-              key={index}
-            >
-              <GeneralInfoSection
-                vendor={scan?.vendor}
-                isp={scan?.connection?.isp}
-                ip={scan?.ip}
-                asn={scan?.connection?.asn}
-                city={scan?.city}
-                country={scan?.country}
-                flag={scan?.flag?.img}
-              />
-
-              {/* <hr className='border w-full border-slate-800' /> */}
-
-              <VulnerabilitiesSection vulnerabilities={scan?.vulnerabilities} />
-            </div>
-          ))}
+        <div className='w-full flex flex-col'>
+          {allScans?.length === 0 ? (
+            <p>No scans found</p>
+          ) : (
+            <Accordion sections={sections} />
+          )}
         </div>
       )}
     </div>
   )
+}
+
+const ResumeSection = ({ scan }) => {
+  return (
+    <div className='w-full flex flex-col items-start gap-8'>
+      <GeneralInfoSection
+        vendor={scan?.vendor}
+        isp={scan?.connection?.isp}
+        ip={scan?.ip}
+        asn={scan?.connection?.asn.toString()}
+        city={scan?.city}
+        country={scan?.country}
+        flag={scan?.flag?.img}
+      />
+
+      <VulnerabilitiesSection vulnerabilities={scan?.vulnerabilities} />
+    </div>
+  )
+}
+
+ResumeSection.propTypes = {
+  scan: PropTypes.object,
 }

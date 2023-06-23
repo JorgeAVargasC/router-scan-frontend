@@ -1,3 +1,4 @@
+import React from 'react'
 import { AiOutlineBank as BankIcon } from 'react-icons/ai'
 import 'react-icons/fa'
 import {
@@ -22,6 +23,7 @@ import {
   TbPhonePlus as PhonePlusIcon,
   TbTable as TableIcon,
   TbTools as ToolsIcon,
+  TbRouter as RouterIcon,
 } from 'react-icons/tb'
 
 import { PropTypes } from 'prop-types'
@@ -44,6 +46,7 @@ const icons = {
   time: <TimeIcon className='stroke-primary w-5 h-auto' />,
   list: <ListIcon className='stroke-primary w-5 h-auto' />,
   table: <TableIcon className='stroke-primary w-5 h-auto' />,
+  router: <RouterIcon className='stroke-primary w-5 h-auto' />,
 }
 
 export const ToggleSection = ({
@@ -66,8 +69,8 @@ export const ToggleSection = ({
       </div>
 
       <div className='flex gap-1'>
-        {tags.map((tag) => (
-          <>{tag}</>
+        {tags.map((tag, index) => (
+          <React.Fragment key={index}>{tag}</React.Fragment>
         ))}
         <MdKeyboardArrowRight
           size={30}

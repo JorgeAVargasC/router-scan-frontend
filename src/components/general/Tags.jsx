@@ -14,7 +14,7 @@ export const Tags = ({ color = 'info', message = 'tag' }) => {
     gray: 'bg-gray-500',
   }
 
-  return <span className={`${colors[color]} text-sm px-2 rounded-md font-medium grid place-items-center uppercase`}>{message}</span>
+  return <span className={`${colors[color]} min-w-[40px] text-sm px-2 rounded-md font-medium grid place-items-center uppercase`}>{message}</span>
 }
 
 Tags.propTypes = {

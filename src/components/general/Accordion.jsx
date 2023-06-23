@@ -10,7 +10,7 @@ export const Accordion = ({ sections = [] }) => {
 
   return (
     <>
-      {sections.map(({ title, children, icon, tags }, i) => (
+      {sections?.map(({ title, children, icon, tags }, i) => (
         <div className='flex flex-col' key={i}>
           <motion.header
             initial={false}
