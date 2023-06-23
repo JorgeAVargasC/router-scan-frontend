@@ -1,5 +1,34 @@
 {
   "vendor": "Arris Group",
+  "ip": "181.137.211.188",
+  "continent": "South America",
+  "continent_code": "SA",
+  "country": "Colombia",
+  "country_code": "CO",
+  "region": "Cauca",
+  "region_code": "CAU",
+  "city": "Popay\u00e1n",
+  "latitude": 2.4448143,
+  "longitude": -76.6147395,
+  "flag": {
+    "img": "https://cdn.ipwhois.io/flags/co.svg",
+    "emoji": "\ud83c\udde8\ud83c\uddf4",
+    "emoji_unicode": "U+1F1E8 U+1F1F4"
+  },
+  "connection": {
+    "asn": 13489,
+    "org": "EPM Telecomunicaciones S.A. E.S.P.",
+    "isp": "EPM Telecomunicaciones S.A. E.S.P.",
+    "domain": "epm.net.co"
+  },
+  "timezone": {
+    "id": "America/Bogota",
+    "abbr": "-05",
+    "is_dst": false,
+    "offset": -18000,
+    "utc": "-05:00",
+    "current_time": "2023-06-15T23:33:15-05:00"
+  },
   "vulnerabilities": [
     {
       "cve": "CVE-2017-8798",

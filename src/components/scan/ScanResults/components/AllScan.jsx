@@ -9,7 +9,8 @@ import { Loading } from '@/components/general'
 
 import { useScanServices } from '../hooks'
 
-import { ScanScoreTags } from './ScanScoreTags'
+import { GeneralInfoSection } from './GeneralInfoSection'
+import { VulnerabilitiesSection } from './VulnerabilitiesSection'
 
 export const AllScan = () => {
   const [allScans] = useRecoilState(allScansState)
@@ -28,32 +29,22 @@ export const AllScan = () => {
         <div className='w-full flex flex-col gap-4'>
           {allScans?.map((scan, index) => (
             <div
-              className='w-full flex flex-col items-start border p-2 gap-3 rounded-md'
+              className='w-full flex flex-col items-start border p-4 gap-8 rounded-md'
               key={index}
             >
-              <img
-                className='w-8 h-8 rounded-full'
-                src={scan.flag.img}
-                alt=''
+              <GeneralInfoSection
+                vendor={scan?.vendor}
+                isp={scan?.connection?.isp}
+                ip={scan?.ip}
+                asn={scan?.connection?.asn}
+                city={scan?.city}
+                country={scan?.country}
+                flag={scan?.flag?.img}
               />
-              <span>{scan.vendor}</span>
-              <span>{scan.connection.isp}</span>
-              <div className='flex flex-col gap-2'>
-                {scan.vulnerabilities.map((vulnerability, index) => (
-                  <div
-                    className='flex items-center border border-slate-700 rounded-md p-2 gap-2'
-                    key={index}
-                  >
-                    <span className='w-36 border-r'>{vulnerability.cve}</span>
-                    <div className='flex-1'>
-                      <ScanScoreTags
-                        cvss={vulnerability.cvss}
-                        severity={vulnerability.severity}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+
+              {/* <hr className='border w-full border-slate-800' /> */}
+
+              <VulnerabilitiesSection vulnerabilities={scan?.vulnerabilities} />
             </div>
           ))}
         </div>

@@ -2,9 +2,12 @@ import { scanLoadingState, scanState } from '@/contexts'
 
 import { useRecoilState } from 'recoil'
 
-import { ScanButton, ScanInfo } from '.'
-
 import { useScanServices } from '../hooks'
+
+import { GeneralInfoSection } from './GeneralInfoSection'
+import { VulnerabilitiesSection } from './VulnerabilitiesSection'
+
+import { ScanButton } from '.'
 
 export const Scan = () => {
   const [scan] = useRecoilState(scanState)
@@ -14,10 +17,19 @@ export const Scan = () => {
     <div className='flex flex-col gap-10 items-center justify-center'>
       <ScanButton onClick={getScan} loading={scanLoading} />
       {scan && !scanLoading && (
-        <ScanInfo
-          vendor={scan?.vendor}
-          vulnerabilities={scan?.vulnerabilities}
-        />
+        <>
+          <GeneralInfoSection
+            vendor={scan?.vendor}
+            isp={scan?.connection?.isp}
+            ip={scan?.ip}
+            asn={scan?.connection?.asn}
+            city={scan?.city}
+            country={scan?.country}
+            flag={scan?.flag?.img}
+          />
+
+          <VulnerabilitiesSection vulnerabilities={scan?.vulnerabilities} />
+        </>
       )}
     </div>
   )
