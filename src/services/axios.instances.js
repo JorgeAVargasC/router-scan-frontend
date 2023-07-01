@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // const API_BASE_URL = import.meta.env.VITE_API_EXPRESS_URL
-const API_BASE_URL = 'http://localhost:5000'
+const API_BASE_URL = `http://${window.location.hostname}:5000`
 
 const configBasic = {
   baseURL: API_BASE_URL,
