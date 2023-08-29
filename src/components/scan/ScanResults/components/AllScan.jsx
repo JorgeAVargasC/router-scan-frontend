@@ -12,6 +12,7 @@ import { useScanServices } from '../hooks'
 
 import { GeneralInfoSection } from './GeneralInfoSection'
 import { VulnerabilitiesSection } from './VulnerabilitiesSection'
+import { useTranslation } from 'react-i18next'
 
 export const AllScan = () => {
   const [allScans] = useRecoilState(allScansState)
@@ -21,6 +22,8 @@ export const AllScan = () => {
   useEffect(() => {
     getAllScans()
   }, [])
+
+  const {t} = useTranslation()
 
   const sections = allScans?.map((scan, index) => ({
     title: scan.vendor,
@@ -42,10 +45,10 @@ export const AllScan = () => {
       ) : (
         <div className='w-full flex flex-col'>
           {allScans?.length === 0 ? (
-            <p>No scans found</p>
+            <p>{t('noResults')}</p>
           ) : (
             <>
-              <span className='mb-4'>{`${allScans?.length} Results`}</span>
+              <span className='mb-4'>{`${allScans?.length || 0} ${t('results')}`}</span>
               <Accordion sections={sections} />
             </>
           )}

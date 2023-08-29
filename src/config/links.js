@@ -2,7 +2,7 @@ export class Links {
   static LINKS_MAIN = {
     HOME: {
       path: '/home',
-      label: 'Home',
+      label: 'navbar.home',
       to: '/home',
     },
     SCAN: {

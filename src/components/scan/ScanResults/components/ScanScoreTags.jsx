@@ -25,7 +25,7 @@ export const ScanScoreTags = ({ cvss = 0.0, severity = 'NONE' }) => {
           ? 'yellow'
           : cvss >= 7 && cvss <= 8.9
           ? 'orange'
-          : 'red'
+          : 'gray'
       }
       message={severity}
     />

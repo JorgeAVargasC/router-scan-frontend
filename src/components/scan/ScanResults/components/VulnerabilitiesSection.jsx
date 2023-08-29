@@ -3,14 +3,16 @@ import { Tags } from '@/components/general'
 import { Vulnerabilities } from './Vulnerabilities'
 
 import PropTypes from 'prop-types'
+import { useTranslation } from 'react-i18next'
 
 export const VulnerabilitiesSection = ({
   vulnerabilities = [],
 }) => {
+  const {t} = useTranslation()
   return (
     <div className='w-full flex flex-col gap-2'>
       <div className='flex items-center justify-between'>
-        <h6 className='uppercase mb-2'>Vulnerabilities</h6>
+        <h6 className='uppercase mb-2'>{t('vulnerabilities')}</h6>
         <Tags color='sky' message={vulnerabilities.length.toString()} />
       </div>
 
