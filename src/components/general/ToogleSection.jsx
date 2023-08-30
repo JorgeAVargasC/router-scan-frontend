@@ -63,7 +63,7 @@ export const ToggleSection = ({
     >
       <div className='flex gap-3 items-center'>
         {icon && icons[icon]}
-        <h3 className='text-sm font-semibold uppercase text-secondary mr-4'>
+        <h3 className='text-sm font-semibold uppercase text-secondary mr-4 overflow-ellipsis truncate w-[250px] lg:w-fit'>
           {title}
         </h3>
       </div>

@@ -5,11 +5,20 @@ import { useRecoilState } from 'recoil'
 import { convertDate } from '@/utils'
 
 import { serviceGetAllScans, serviceGetScan } from '@/services'
+import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
+
+
+
 
 export const useScanServices = () => {
   const [, setScan] = useRecoilState(scanState)
   const [, setAllScans] = useRecoilState(allScansState)
   const [, setScanLoading] = useRecoilState(scanLoadingState)
+  const [loadingAllScans, setLoadingAllScans] = useState(false)
+
+  const {t} = useTranslation()
 
   const getScan = () => {
     setScanLoading(true)
@@ -26,9 +35,11 @@ export const useScanServices = () => {
             .sort((a, b) => b.cvss - a.cvss),
         }
         setScan(preparedData)
+        toast.success(t('success'))
       })
       .catch((error) => {
         console.log(error)
+        toast.error(t('error'))
       })
       .finally(() => {
         setScanLoading(false)
@@ -36,21 +47,24 @@ export const useScanServices = () => {
   }
 
   const getAllScans = () => {
-    setScanLoading(true)
+    setLoadingAllScans(true)
     serviceGetAllScans()
       .then((data) => {
         setAllScans(data)
+        toast.success(t('success'))
       })
       .catch((error) => {
         console.log(error)
+        toast.error(t('error'))
       })
       .finally(() => {
-        setScanLoading(false)
+        setLoadingAllScans(false)
       })
   }
 
   return {
     getScan,
     getAllScans,
+    loadingAllScans,
   }
 }

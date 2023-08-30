@@ -1,29 +1,34 @@
 import PropTypes from 'prop-types'
 import { Item } from './Item'
+import { useTranslation } from 'react-i18next'
 
 export const GeneralInfoSection = ({
   isp = '',
-  ip = '',
+  // ip = '',
   asn = '',
   city = '',
   country = '',
   flag = '',
   vendor = '',
 }) => {
+
+  const {t} = useTranslation()
   return (
     <div className='w-full flex flex-col gap-2'>
-      <h6 className='uppercase mb-2'>General Info</h6>
+      <h6 className='uppercase mb-2'>
+        {t('generalInfo')}
+      </h6>
 
-      <Item title='ISP' content={isp} />
-      <Item title='Vendor' content={vendor} />
+      <Item title={`${t('isp')}`} content={isp} />
+      <Item title={`${t('vendor')}`} content={vendor} />
 
-      <div className='grid grid-cols-2 gap-2'>
-        <Item title='IP' content={ip} />
-        <Item title='ASN' content={asn} />
+      <div className='grid gap-2'>
+        {/* <Item title={`${t('ip')}`} content={ip} /> */}
+        <Item title={`${t('asn')}`} content={asn} />
       </div>
 
       <Item
-        title='Location'
+        title={`${t('location')}`}
         content={`${city}, ${country}`}
         flag={flag}
       />

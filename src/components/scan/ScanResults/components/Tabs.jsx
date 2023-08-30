@@ -1,25 +1,30 @@
 import PropTypes from 'prop-types'
+import { useTranslation } from 'react-i18next'
 
 export const Tabs = ({ currentView, setCurrentView }) => {
+  const {t} = useTranslation()
   return (
-    <div className='flex items-center justify-center gap-4 mb-10'>
+    <div className='grid place-items-center'>
+      <div className='w-[400px] grid grid-cols-2 place-items-center gap-4 mb-10'>
       <button
-        className={`h-12 w-[120px] border px-4 rounded-md ${
+        className={`h-12 w-full border px-4 rounded-md ${
           currentView === 1 ? 'border-sky-500 bg-sky-500' : 'bg-transparent'
         }`}
         onClick={() => setCurrentView(1)}
       >
-        Scan
+        {t('scan')}
       </button>
       <button
-        className={`h-12 w-[120px] border px-4 rounded-md ${
+        className={`h-12 w-full border px-4 rounded-md ${
           currentView === 2 ? 'border-sky-500 bg-sky-500' : 'bg-transparent'
         }`}
         onClick={() => setCurrentView(2)}
       >
-        All Scans
+        {t('allScans')}
       </button>
     </div>
+    </div>
+    
   )
 }
 
