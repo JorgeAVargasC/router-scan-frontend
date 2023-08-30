@@ -22,7 +22,7 @@
   "solutions": "Solutions",
   "noVulnerabilities": "No vulnerabilities found",
   "success": "Success",
-  "error": "Error",
+  "error": "Something went wrong",
   "location": "Location",
   "vulnerabilities": "Vulnerabilities",
   "port": "Port",

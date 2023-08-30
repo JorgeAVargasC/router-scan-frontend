@@ -9,17 +9,17 @@ import { i18nState } from '@/contexts'
 export const Navbar = () => {
   const { LINKS_MAIN } = Links
 
-  const navlinks = [
-    {
-      ...LINKS_MAIN.HOME,
-    },
-    // {
-    //   ...LINKS_MAIN.SCAN,
-    // },
-    // {
-    //   ...LINKS_MAIN.STYLES,
-    // },
-  ]
+  // const navlinks = [
+  //   {
+  //     ...LINKS_MAIN.HOME,
+  //   },
+  //   // {
+  //   //   ...LINKS_MAIN.SCAN,
+  //   // },
+  //   // {
+  //   //   ...LINKS_MAIN.STYLES,
+  //   // },
+  // ]
 
   const { t } = useTranslation()
   const [,setI18n] = useRecoilState(i18nState)
@@ -34,7 +34,7 @@ export const Navbar = () => {
         </Link>
 
         <div className='flex gap-5'>
-          {navlinks.map((link, index) => (
+          {/* {navlinks.map((link, index) => (
             <Link
               key={index}
               to={link.to}
@@ -42,10 +42,10 @@ export const Navbar = () => {
             >
               {t(link.label)}
             </Link>
-          ))}
+          ))} */}
           <div>
             <select
-              className='text-white bg-transparent border-0'
+              className='text-white bg-slate-950 border rounded-md px-4 appearance-none border-white'
               onChange={(e) => {
                 localStorage.setItem('i18nextLng', e.target.value)
                 setI18n(e.target.value)

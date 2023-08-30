@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { allScansState, scanLoadingState } from '@/contexts'
+import { allScansState } from '@/contexts'
 
 import { useEffect } from 'react'
 
@@ -16,8 +16,7 @@ import { useTranslation } from 'react-i18next'
 
 export const AllScan = () => {
   const [allScans] = useRecoilState(allScansState)
-  const [scanLoading] = useRecoilState(scanLoadingState)
-  const { getAllScans } = useScanServices()
+  const { getAllScans,loadingAllScans } = useScanServices()
 
   useEffect(() => {
     getAllScans()
@@ -40,7 +39,7 @@ export const AllScan = () => {
 
   return (
     <div className='flex flex-col items-center'>
-      {scanLoading ? (
+      {loadingAllScans ? (
         <Loading />
       ) : (
         <div className='w-full flex flex-col'>
