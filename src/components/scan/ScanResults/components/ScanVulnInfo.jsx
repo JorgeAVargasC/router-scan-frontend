@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types'
 import { Accordion, Tags } from '@/components/general'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { convertDate } from '@/utils'
 
 export const ScanVulnInfo = ({
   cve,
@@ -23,15 +24,15 @@ export const ScanVulnInfo = ({
     // { title: 'ID', content: id },
     { title: 'port', content: port },
     { title: 'cvss', content: cvss },
-    { title: 'severity', content: severity },
-    { title: 'summary', content: summary },
-    { title: 'modified', content: modified },
-    { title: 'published', content: published },
+    { title: 'severity', content: t(severity) },
+    { title: 'summary', content: t(summary) },
+    { title: 'modified', content: convertDate(modified,'date time') },
+    { title: 'published', content: convertDate(published, 'date time')},
     { title: 'recommendations', content: recommendations },
   ]
 
   const sections = recommendations?.map((recommendation, index) => ({
-    title: `${index + 1}. ${recommendation.name}`,
+    title: `${index + 1}. ${t(recommendation.name)}`,
     children: (
       <div key={index} className='flex flex-col gap-2 text-justify'>
         <div className='flex flex-col gap-1'>

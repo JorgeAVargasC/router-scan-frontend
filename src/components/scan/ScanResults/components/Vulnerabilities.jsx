@@ -5,6 +5,9 @@ import { ScanVulnInfo } from './ScanVulnInfo'
 import { useTranslation } from 'react-i18next'
 
 export const Vulnerabilities = ({ vulnerabilities }) => {
+
+  const {t} = useTranslation()
+
   const sections = vulnerabilities.map((vuln, index) => ({
     title: vuln.id,
     children: <ScanVulnInfo key={index} {...vuln} />,
@@ -13,8 +16,6 @@ export const Vulnerabilities = ({ vulnerabilities }) => {
     ],
     icon: 'info',
   }))
-
-  const {t} = useTranslation()
 
   return (
     <div className='w-full'>
