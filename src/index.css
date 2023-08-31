@@ -15,6 +15,7 @@ html {
 body {
   /* 16px */
   font-size: 1rem;
+  top: 0 !important;
   font-weight: 400;
   line-height: 1.5;
   overflow-x: hidden;
@@ -111,4 +112,34 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+/* Google Translate Button */
+
+.skiptranslate iframe{
+  border: red 1px solid !important;
+  display: none !important;
+}
+
+#google_translate_element {
+  width: auto;
+}
+
+#google_translate_element .goog-te-gadget {
+  font-family: inherit;
+  width: max-content;
+  font-size: inherit;
+}
+
+#google_translate_element .goog-te-gadget-simple {
+  background-color: transparent;
+  width: fit-content;
+  display: flex;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+#google_translate_element .goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed {
+  color: white;
+  display: flex;
 }
