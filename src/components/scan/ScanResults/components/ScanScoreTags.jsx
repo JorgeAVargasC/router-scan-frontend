@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types'
 
 import { Tags } from '@/components/general'
+import { useTranslation } from 'react-i18next'
 
 // if cvss == 0.0:
 //         return 'NONE'
@@ -14,6 +15,7 @@ import { Tags } from '@/components/general'
 //         return 'CRITICAL'
 
 export const ScanScoreTags = ({ cvss = 0.0, severity = 'NONE' }) => {
+  const {t} = useTranslation()
   return (
     <Tags
       color={
@@ -27,7 +29,7 @@ export const ScanScoreTags = ({ cvss = 0.0, severity = 'NONE' }) => {
           ? 'orange'
           : 'gray'
       }
-      message={severity}
+      message={t(severity)}
     />
   )
 }

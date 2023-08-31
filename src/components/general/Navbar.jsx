@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom'
-
-import { Links } from '@/config'
+/* eslint-disable no-undef */
+// import { i18nState } from '@/contexts'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { TbRouter } from 'react-icons/tb'
-import { useRecoilState } from 'recoil'
-import { i18nState } from '@/contexts'
+import { Link } from 'react-router-dom'
+
+// import { useRecoilState } from 'recoil'
+import { Links } from '@/config'
 
 export const Navbar = () => {
   const { LINKS_MAIN } = Links
@@ -21,8 +23,20 @@ export const Navbar = () => {
   //   // },
   // ]
 
+  useEffect(() => {
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: 'es',
+        includedLanguages: 'en,es',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        gaTrack: true,
+      },
+      'google_translate_element'
+    )
+  }, [])
+
   const { t } = useTranslation()
-  const [,setI18n] = useRecoilState(i18nState)
+  // const [, setI18n] = useRecoilState(i18nState)
   return (
     <nav className='fixed z-50 w-full px-5 min-h-[10vh] bg-slate-950 flex items-center justify-center'>
       <div className='w-full justify-between flex'>
@@ -44,7 +58,7 @@ export const Navbar = () => {
             </Link>
           ))} */}
           <div>
-            <select
+            {/* <select
               className='text-white bg-slate-950 border rounded-md px-4 appearance-none border-white'
               onChange={(e) => {
                 localStorage.setItem('i18nextLng', e.target.value)
@@ -54,7 +68,8 @@ export const Navbar = () => {
             >
               <option value='en'>English</option>
               <option value='es'>Español</option>
-            </select>
+            </select> */}
+            <div id='google_translate_element'></div>
           </div>
         </div>
       </div>
