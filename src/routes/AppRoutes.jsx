@@ -11,15 +11,21 @@ import { Loading } from '@/components/general'
 const Home = lazy(() => import('@/pages/home'))
 const NotFound = lazy(() => import('@/pages/not-found'))
 const Styles = lazy(() => import('@/pages/styles'))
+const Login = lazy(() => import('@/pages/login'))
+const Register = lazy(() => import('@/pages/register'))
 
 export const AppRoutes = () => {
   const { LINKS_MAIN } = Links
 
   const mainRoutes = [
-    // {
-    //   ...LINKS_MAIN.SCAN,
-    //   element: <Scan />,
-    // },
+    {
+      ...LINKS_MAIN.LOGIN,
+      element: <Login />,
+    },
+    {
+      ...LINKS_MAIN.REGISTER,
+      element: <Register />,
+    },
     {
       ...LINKS_MAIN.HOME,
       element: <Home />,

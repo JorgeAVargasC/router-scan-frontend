@@ -1,5 +1,15 @@
 export class Links {
   static LINKS_MAIN = {
+    LOGIN: {
+      path: '/login',
+      label: 'navbar.login',
+      to: '/login',
+    },
+    REGISTER: {
+      path: '/register',
+      label: 'navbar.register',
+      to: '/register',
+    },
     HOME: {
       path: '/home',
       label: 'navbar.home',
