@@ -8,11 +8,20 @@ import { GeneralInfoSection } from './GeneralInfoSection'
 import { VulnerabilitiesSection } from './VulnerabilitiesSection'
 
 import { ScanButton } from '.'
+import { useEffect } from 'react'
 
 export const Scan = () => {
-  const [scan] = useRecoilState(scanState)
+  const [scan,setScan] = useRecoilState(scanState)
   const [scanLoading] = useRecoilState(scanLoadingState)
   const { getScan } = useScanServices()
+
+  useEffect(() => {
+    return () => {
+      setScan(null)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className='flex flex-col gap-10 items-center justify-center'>
       <ScanButton onClick={getScan} loading={scanLoading} />
