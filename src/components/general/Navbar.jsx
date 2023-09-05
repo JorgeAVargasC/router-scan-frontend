@@ -1,14 +1,19 @@
 /* eslint-disable no-undef */
 // import { i18nState } from '@/contexts'
-import { useEffect } from 'react'
+import { userState } from '@/contexts/auth.context'
+
 import { useTranslation } from 'react-i18next'
 import { TbRouter } from 'react-icons/tb'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { useRecoilState } from 'recoil'
 
 // import { useRecoilState } from 'recoil'
 import { Links } from '@/config'
 
 export const Navbar = () => {
+  const [user,setUser] = useRecoilState(userState)
+
   const { LINKS_MAIN } = Links
 
   // const navlinks = [
@@ -23,27 +28,16 @@ export const Navbar = () => {
   //   // },
   // ]
 
-  useEffect(() => {
-      new google.translate.TranslateElement(
-        {
-          pageLanguage: 'es',
-          includedLanguages: 'en,es',
-          layout: google.translate.TranslateElement?.InlineLayout?.SIMPLE,
-          gaTrack: true,
-        },
-        'google_translate_element'
-      )
-  }, [])
-
   const { t } = useTranslation()
+  const navigate = useNavigate()
   // const [, setI18n] = useRecoilState(i18nState)
   return (
-    <nav className='fixed z-50 w-full px-5 min-h-[10vh] bg-slate-950 flex items-center justify-center'>
+    <nav className='fixed z-50 w-full px-5 min-h-[10vh] bg-slate-950 flex items-center justify-center max-w-[1200px]'>
       <div className='w-full justify-between flex'>
         <Link to={LINKS_MAIN.HOME.to}>
           <figure className='flex items-center gap-4'>
             <TbRouter className='text-2xl text-white' />
-            <b>{t('navbar.appName')}</b>
+            <b className='hidden md:block'>{t('navbar.appName')}</b>
           </figure>
         </Link>
 
@@ -57,8 +51,22 @@ export const Navbar = () => {
               {t(link.label)}
             </Link>
           ))} */}
-          <div>
-            {/* <select
+          <div className='flex gap-4 items-center '>
+            {user && (
+              <button
+                type='submit'
+                onClick={() => {
+                  setUser(null)
+                  navigate(LINKS_MAIN.LOGIN.to)
+                }}
+                className='text-white bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
+              >
+                Cerrar Sesión
+              </button>
+            )}
+
+            <div>
+              {/* <select
               className='text-white bg-slate-950 border rounded-md px-4 appearance-none border-white'
               onChange={(e) => {
                 localStorage.setItem('i18nextLng', e.target.value)
@@ -69,7 +77,9 @@ export const Navbar = () => {
               <option value='en'>English</option>
               <option value='es'>Español</option>
             </select> */}
-            <div id='google_translate_element'></div>
+
+              <div id='google_translate_element'></div>
+            </div>
           </div>
         </div>
       </div>

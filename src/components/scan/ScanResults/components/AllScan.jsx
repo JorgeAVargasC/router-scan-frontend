@@ -28,6 +28,11 @@ export const AllScan = () => {
     title: scan.vendor,
     children: <ResumeSection key={index} scan={scan} />,
     tags: [
+      <Tags 
+        key={index}
+        color='gray'
+        message={scan?.connection?.isp.toString()}
+      />,
       <Tags
         key={index}
         color='sky'

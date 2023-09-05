@@ -17,4 +17,9 @@ const rget = async (endpoint) => {
   return await axios.create(config).get(endpoint)
 }
 
-export { rget }
+const rpost = async (endpoint, body) => {
+  const config = { ...configBasic, headers: { ...configBasic.headers } }
+  return await axios.create(config).post(endpoint, body)
+}
+
+export { rget, rpost }

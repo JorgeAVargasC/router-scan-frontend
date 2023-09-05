@@ -1,22 +1,40 @@
 /* eslint-disable no-unused-vars */
-import exampleScan from '../data/example.response.json'
 import exampleAllScans from '../data/example.all.response.json'
+import exampleScan from '../data/example.response.json'
 
-import { rget } from './axios.instances'
+import { rget, rpost } from './axios.instances'
 
 const serviceGetScan = async () => {
-  const { data } = await rget('/scan')
+  const { data } = await rget('scan')
   // return exampleScan
   return data
 }
 
 const serviceGetAllScans = async () => {
-  const { data } = await rget('/scan/all')
+  const { data } = await rget('scan/all')
   // return exampleAllScans
   return data
 }
 
-export { 
+const serviceFilterScans = async (body) => {
+  const { data } = await rpost('scan/filter', body)
+  return data
+}
+
+const serviceRegister = async (body) => {
+  const { data } = await rpost('register', body)
+  return data
+}
+
+const serviceLogin = async (body) => {
+  const { data } = await rpost('login', body)
+  return data
+}
+
+export {
   serviceGetScan,
-  serviceGetAllScans
+  serviceGetAllScans,
+  serviceFilterScans,
+  serviceRegister,
+  serviceLogin,
 }

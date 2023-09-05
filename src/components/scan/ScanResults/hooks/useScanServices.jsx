@@ -1,24 +1,28 @@
 import { allScansState, scanLoadingState, scanState } from '@/contexts'
+import { userState } from '@/contexts/auth.context'
+
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 import { useRecoilState } from 'recoil'
 
 import { convertDate } from '@/utils'
 
-import { serviceGetAllScans, serviceGetScan } from '@/services'
-import { toast } from 'react-toastify'
-import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
-
-
-
+import {
+  serviceFilterScans,
+  serviceGetAllScans,
+  serviceGetScan,
+} from '@/services'
 
 export const useScanServices = () => {
   const [, setScan] = useRecoilState(scanState)
   const [, setAllScans] = useRecoilState(allScansState)
   const [, setScanLoading] = useRecoilState(scanLoadingState)
+  const [user] = useRecoilState(userState)
   const [loadingAllScans, setLoadingAllScans] = useState(false)
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const getScan = () => {
     setScanLoading(true)
@@ -48,18 +52,36 @@ export const useScanServices = () => {
 
   const getAllScans = () => {
     setLoadingAllScans(true)
-    serviceGetAllScans()
-      .then((data) => {
-        setAllScans(data)
-        toast.success(t('success'))
+
+    if (user.role === 'ISP') {
+      serviceFilterScans({
+        asn: user.asn,
       })
-      .catch((error) => {
-        console.log(error)
-        toast.error(t('error'))
-      })
-      .finally(() => {
-        setLoadingAllScans(false)
-      })
+        .then((data) => {
+          setAllScans(data.data)
+          toast.success(t('success'))
+        })
+        .catch((error) => {
+          console.log(error)
+          toast.error(t('error'))
+        })
+        .finally(() => {
+          setLoadingAllScans(false)
+        })
+    } else if (user.role === 'ADMIN') {
+      serviceGetAllScans()
+        .then((data) => {
+          setAllScans(data)
+          toast.success(t('success'))
+        })
+        .catch((error) => {
+          console.log(error)
+          toast.error(t('error'))
+        })
+        .finally(() => {
+          setLoadingAllScans(false)
+        })
+    } 
   }
 
   return {

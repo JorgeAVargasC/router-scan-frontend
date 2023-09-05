@@ -63,12 +63,12 @@ export const ToggleSection = ({
     >
       <div className='flex gap-3 items-center'>
         {icon && icons[icon]}
-        <h3 className='text-sm font-semibold uppercase text-secondary mr-4 overflow-ellipsis truncate w-[250px] lg:w-fit'>
+        <h3 className='text-sm font-semibold uppercase text-secondary mr-4 overflow-ellipsis truncate w-[100px] md:w-[200px] lg:w-max '>
           {title}
         </h3>
       </div>
 
-      <div className='flex gap-1'>
+      <div className='flex items-center gap-2'>
         {tags.map((tag, index) => (
           <React.Fragment key={index}>{tag}</React.Fragment>
         ))}
