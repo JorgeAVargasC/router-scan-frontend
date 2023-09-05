@@ -22,6 +22,8 @@ export const MainLayout = () => {
     if (user) {
       navigate(Links.LINKS_MAIN.HOME.to)
     } else {
+      if (pathname === Links.LINKS_MAIN.LOGIN.to) return
+      if (pathname === Links.LINKS_MAIN.REGISTER.to) return
       navigate(Links.LINKS_MAIN.LOGIN.to)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,8 +32,10 @@ export const MainLayout = () => {
   return (
     <div className='bg-slate-950 text-white min-h-screen w-full flex flex-col items-center justify-between scroll-smooth '>
       <Navbar />
-
       <main className='w-full mt-[10vh] max-w-[1200px] min-h-[80vh] p-5 flex-1 flex flex-col items-stretch'>
+        {user && <p className='text-center'>{`Hola, ${user.name}`}</p>}
+        {user && <p className='text-center mb-4'>{`${user.email}`}</p>}
+
         <Outlet />
       </main>
 

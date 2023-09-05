@@ -6,6 +6,8 @@ import { toast } from 'react-toastify'
 import { useRecoilState } from 'recoil'
 
 import { serviceLogin } from '@/services'
+import { Link } from 'react-router-dom'
+import { Links } from '@/config'
 
 export default function Login() {
   const [, setUser] = useRecoilState(userState)
@@ -109,6 +111,15 @@ export default function Login() {
             Iniciar Sesión
           </button>
         </form>
+
+        <div className='mt-5 text-center'>
+          <Link
+            to={Links.LINKS_MAIN.REGISTER.to}
+            className='text-sm font-medium text-gray-900 dark:text-white hover:underline'
+          >
+            ¿No tienes una cuenta? Regístrate
+          </Link>
+        </div>
       </div>
     </div>
   )
