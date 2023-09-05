@@ -26,7 +26,12 @@ export const useScanServices = () => {
 
   const getScan = () => {
     setScanLoading(true)
-    serviceGetScan()
+
+    const body = {
+      userId: user._id
+    }
+
+    serviceGetScan(body)
       .then((data) => {
         const preparedData = {
           ...data,
@@ -81,7 +86,22 @@ export const useScanServices = () => {
         .finally(() => {
           setLoadingAllScans(false)
         })
-    } 
+    } else if (user.role === 'USER') {
+      serviceFilterScans({
+        userId: user._id,
+      })
+        .then((data) => {
+          setAllScans(data.data)
+          toast.success(t('success'))
+        })
+        .catch((error) => {
+          console.log(error)
+          toast.error(t('error'))
+        })
+        .finally(() => {
+          setLoadingAllScans(false)
+        })
+    }
   }
 
   return {

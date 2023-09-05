@@ -4,8 +4,8 @@ import exampleScan from '../data/example.response.json'
 
 import { rget, rpost } from './axios.instances'
 
-const serviceGetScan = async () => {
-  const { data } = await rget('scan')
+const serviceGetScan = async (body) => {
+  const { data } = await rpost('scan',body)
   // return exampleScan
   return data
 }
