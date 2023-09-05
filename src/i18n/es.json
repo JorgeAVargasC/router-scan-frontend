@@ -11,6 +11,7 @@
   "city": "Ciudad",
   "country": "País",
   "flag": "Bandera",
+  "scanningTime": "Tiempo de Escaneo",
   "generalInfo": "Información General",
   "scan": "Escanear",
   "allScans": "Todos los Escaneos",

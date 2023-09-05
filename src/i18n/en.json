@@ -11,6 +11,7 @@
   "city": "City",
   "country": "Country",
   "flag": "Flag",
+  "scanningTime": "Scanning Time",
   "generalInfo": "General Info",
   "scan": "Scan",
   "allScans": "All Scans",

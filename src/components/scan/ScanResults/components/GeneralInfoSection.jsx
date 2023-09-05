@@ -1,6 +1,8 @@
-import PropTypes from 'prop-types'
-import { Item } from './Item'
 import { useTranslation } from 'react-i18next'
+
+import PropTypes from 'prop-types'
+
+import { Item } from './Item'
 
 export const GeneralInfoSection = ({
   isp = '',
@@ -10,21 +12,33 @@ export const GeneralInfoSection = ({
   country = '',
   flag = '',
   vendor = '',
+  scanningTime,
 }) => {
+  const { t } = useTranslation()
 
-  const {t} = useTranslation()
+  const convertSecondsToMinutesAndSeconds = (seconds) => {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    return `${minutes}m ${remainingSeconds.toFixed(0)}s`
+  }
+
   return (
     <div className='w-full flex flex-col gap-2'>
-      <h6 className='uppercase mb-2'>
-        {t('generalInfo')}
-      </h6>
+      <h6 className='uppercase mb-2'>{t('generalInfo')}</h6>
 
       <Item title={`${t('isp')}`} content={isp} />
       <Item title={`${t('vendor')}`} content={vendor} />
 
-      <div className='grid gap-2'>
+      <div className='flex gap-2'>
         {/* <Item title={`${t('ip')}`} content={ip} /> */}
-        <Item title={`${t('asn')}`} content={asn} />
+        {scanningTime && (
+          <div className='w-full'>
+            <Item title={`${t('scanningTime')}`} content={convertSecondsToMinutesAndSeconds(scanningTime)} />
+          </div>
+        )}
+        <div className='w-full'>
+          <Item title={`${t('asn')}`} content={asn} />
+        </div>
       </div>
 
       <Item
@@ -44,4 +58,5 @@ GeneralInfoSection.propTypes = {
   country: PropTypes.string,
   flag: PropTypes.string,
   vendor: PropTypes.string,
+  scanningTime: PropTypes.number,
 }

@@ -26,6 +26,7 @@ export const Scan = () => {
             city={scan?.city}
             country={scan?.country}
             flag={scan?.flag?.img}
+            scanningTime={scan?.scanningTime}
           />
 
           <VulnerabilitiesSection vulnerabilities={scan?.vulnerabilities} />
