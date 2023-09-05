@@ -15,11 +15,15 @@ import { VulnerabilitiesSection } from './VulnerabilitiesSection'
 import { useTranslation } from 'react-i18next'
 
 export const AllScan = () => {
-  const [allScans] = useRecoilState(allScansState)
+  const [allScans, setScans] = useRecoilState(allScansState)
   const { getAllScans,loadingAllScans } = useScanServices()
 
   useEffect(() => {
     getAllScans()
+
+    return () => {
+      setScans(null)
+    }
   }, [])
 
   const {t} = useTranslation()
@@ -43,7 +47,7 @@ export const AllScan = () => {
   }))
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center pb-60'>
       {loadingAllScans ? (
         <Loading />
       ) : (

@@ -20,7 +20,7 @@ export const useScanServices = () => {
   const [, setAllScans] = useRecoilState(allScansState)
   const [, setScanLoading] = useRecoilState(scanLoadingState)
   const [user] = useRecoilState(userState)
-  const [loadingAllScans, setLoadingAllScans] = useState(false)
+  const [loadingAllScans, setLoadingAllScans] = useState(true)
 
   const { t } = useTranslation()
 
