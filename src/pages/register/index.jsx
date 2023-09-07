@@ -1,6 +1,6 @@
 import { userState } from '@/contexts/auth.context'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -16,6 +16,9 @@ export default function Register() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const [success, setSuccess] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   // Manejador de evento para el campo de correo electrónico
   const handleEmailChange = (e) => {
@@ -36,7 +39,7 @@ export default function Register() {
     e.preventDefault()
     // Aquí puedes realizar acciones como enviar los datos al servidor
     // o realizar validaciones
-
+    setLoading(true)
     try {
       // Llamar al servicio de inicio de sesión
       toast.promise(
@@ -51,53 +54,62 @@ export default function Register() {
           error: 'Error al registrar usuario',
         }
       )
-
       const { message } = await serviceRegister({
         name,
         email,
         password,
       })
-
       console.log(message)
-
-      // Comprobar si la respuesta contiene el token de autenticación u otros datos necesarios
-      toast.promise(
-        serviceLogin({
-          email,
-          password,
-        }),
-        {
-          pending: 'Iniciando sesión...',
-          success: 'Sesión iniciada correctamente',
-          error: 'Error al iniciar sesión',
-        }
-      )
-      const response2 = await serviceLogin({
-        email,
-        password,
-      })
-
-      // Comprobar si la respuesta contiene el token de autenticación u otros datos necesarios
-      if (response2?.user) {
-        // Actualizar el estado del usuario en el contexto de Recoil
-        setUser(response2.user)
-
-        // Mostrar un mensaje de éxito
-      } else {
-        // Mostrar un mensaje de error si la respuesta no contiene el token
-        console.error('Error al iniciar sesión')
-      }
+      setSuccess(true)
     } catch (error) {
+      setLoading(false)
       // Manejar errores de inicio de sesión
       console.error('Error al iniciar sesión:', error)
       toast.error(error.response.data.error)
     }
   }
 
+  const login = async () => {
+    toast.promise(
+      serviceLogin({
+        email,
+        password,
+      }),
+      {
+        pending: 'Iniciando sesión...',
+        success: 'Sesión iniciada correctamente',
+        error: 'Error al iniciar sesión',
+      }
+    )
+
+    const response2 = await serviceLogin({
+      email,
+      password,
+    })
+
+    // Comprobar si la respuesta contiene el token de autenticación u otros datos necesarios
+    if (response2?.user) {
+      // Actualizar el estado del usuario en el contexto de Recoil
+      setUser(response2.user)
+      setLoading(false)
+      // Mostrar un mensaje de éxito
+    } else {
+      // Mostrar un mensaje de error si la respuesta no contiene el token
+      console.error('Error al iniciar sesión')
+    }
+  }
+
+  useEffect(() => {
+    if (success) {
+      login()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [success])
+
   return (
     <div className='min-h-full grid place-items-center flex-1'>
       {/* card */}
-      <div className='border p-5 bg-slate-900 border-slate-800 shadow-2xl shadow-slate-800 rounded-md w-[350px]'>
+      <div className='border p-5 bg-slate-900 border-slate-800 shadow-2xl shadow-slate-800 rounded-md w-full sm:w-[350px]'>
         <form onSubmit={handleSubmit}>
           <div className='mb-6'>
             <label
@@ -151,12 +163,18 @@ export default function Register() {
             />
           </div>
 
-          <button
-            type='submit'
-            className='text-white min-w-full bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
-          >
-            Registrarse
-          </button>
+          {loading ? (
+            <div className='text-white min-w-full bg-slate-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
+              Cargando
+            </div>
+          ) : (
+            <button
+              type='submit'
+              className='text-white min-w-full bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
+            >
+              Registrarse
+            </button>
+          )}
         </form>
 
         <div className='mt-5 text-center'>

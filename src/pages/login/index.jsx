@@ -15,6 +15,8 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const [loading,setLoading] = useState(false)
+
   // Manejador de evento para el campo de correo electrónico
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
@@ -30,8 +32,9 @@ export default function Login() {
     e.preventDefault()
     // Aquí puedes realizar acciones como enviar los datos al servidor
     // o realizar validaciones
-
+    setLoading(true)
     try {
+
       // Llamar al servicio de inicio de sesión
       toast.promise(serviceLogin({
         email,
@@ -51,13 +54,14 @@ export default function Login() {
       if (response?.user) {
         // Actualizar el estado del usuario en el contexto de Recoil
         setUser(response.user)
-
+        setLoading(false)
         // Mostrar un mensaje de éxito
       } else {
         // Mostrar un mensaje de error si la respuesta no contiene el token
         console.error('Error al iniciar sesión')
       }
     } catch (error) {
+      setLoading(false)
       // Manejar errores de inicio de sesión
       console.error('Error al iniciar sesión:', error)
       toast.error(error.response.data.error)
@@ -67,7 +71,7 @@ export default function Login() {
   return (
     <div className='min-h-full grid place-items-center flex-1'>
       {/* card */}
-      <div className='border p-5 bg-slate-900 border-slate-800 shadow-2xl shadow-slate-800 rounded-md w-[350px]'>
+      <div className='border p-5 bg-slate-900 border-slate-800 shadow-2xl shadow-slate-800 rounded-md w-full sm:w-[350px]'>
         <form onSubmit={handleSubmit}>
           <div className='mb-6'>
             <label
@@ -104,12 +108,20 @@ export default function Login() {
             />
           </div>
 
-          <button
-            type='submit'
-            className='text-white min-w-full bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
-          >
-            Iniciar Sesión
-          </button>
+          {loading ? (
+            <div
+              className='text-white min-w-full bg-slate-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'
+            >
+              Cargando
+            </div>
+          ) : (
+            <button
+              type='submit'
+              className='text-white min-w-full bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
+            >
+              Iniciar Sesión
+            </button>
+          )}
         </form>
 
         <div className='mt-5 text-center'>
