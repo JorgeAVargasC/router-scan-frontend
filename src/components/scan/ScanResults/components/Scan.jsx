@@ -24,7 +24,7 @@ export const Scan = () => {
 
   return (
     <div className='flex flex-col gap-10 items-center justify-center'>
-      <ScanButton onClick={getScan} loading={scanLoading} />
+      <ScanButton onClick={() => getScan()} loading={scanLoading} />
       {scan && !scanLoading && (
         <>
           <GeneralInfoSection

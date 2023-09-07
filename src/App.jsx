@@ -32,29 +32,41 @@ export default function App() {
       },
     })
 
-  const googleTranslateElementInit = () => {
-    new window.google.translate.TranslateElement(
-      {
-        pageLanguage: 'es',
-        // eslint-disable-next-line no-undef
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        includedLanguages: 'en,es,pt',
-        autoDisplay: false,
-        multilanguagePage: true,
-      },
-      'google_translate_element'
-    )
-  }
-
-  useEffect(() => {
-    var addScript = document.createElement('script')
-    addScript.setAttribute(
-      'src',
-      '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
-    )
-    document.body.appendChild(addScript)
-    window.googleTranslateElementInit = googleTranslateElementInit
-  }, [])
+    const googleTranslateElementInit = () => {
+      if (window.google) {
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: 'es',
+            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+            includedLanguages: 'en,es,pt',
+            autoDisplay: false,
+            multilanguagePage: true,
+          },
+          'google_translate_element'
+        );
+      } else {
+        console.error('Google Translate script has not loaded.');
+      }
+    };
+    
+    useEffect(() => {
+      var addScript = document.createElement('script');
+      addScript.setAttribute(
+        'src',
+        '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
+      );
+    
+      // Check if the script has already been added to the body
+      if (!document.querySelector('script[src*="translate.google.com"]')) {
+        document.body.appendChild(addScript);
+      } else {
+        // Script already exists, don't add it again
+        console.warn('Google Translate script has already been added.');
+      }
+    
+      window.googleTranslateElementInit = googleTranslateElementInit;
+    }, []);
+    
 
   return (
     <>

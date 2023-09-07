@@ -1,9 +1,10 @@
+import { useTranslation } from 'react-i18next'
+
 import { PropTypes } from 'prop-types'
 
 import { Timer } from '@/components/general'
-import { useTranslation } from 'react-i18next'
 
-export const ScanButton = ({ loading, onClick }) => {
+export const ScanButton = ({ loading = false, onClick }) => {
   const { t } = useTranslation()
   return (
     <div className='relative grid place-items-center w-40 aspect-square'>
@@ -16,7 +17,7 @@ export const ScanButton = ({ loading, onClick }) => {
       <button
         className='w-full bg-sky-500 absolute z-10 uppercase font-bold text-xl grid place-items-center aspect-square rounded-full'
         disabled={loading}
-        onClick={onClick}
+        onClick={() => onClick()}
       >
         {loading ? (
           <svg
@@ -38,9 +39,7 @@ export const ScanButton = ({ loading, onClick }) => {
             />
           </svg>
         ) : (
-         <>
-          {t('scan')}
-         </>
+          <div>{t('scan')}</div>
         )}
         <div className='absolute bottom-8 text-base'>
           <Timer isActive={loading} />
