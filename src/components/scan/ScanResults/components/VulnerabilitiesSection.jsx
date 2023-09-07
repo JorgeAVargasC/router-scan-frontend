@@ -13,7 +13,18 @@ export const VulnerabilitiesSection = ({
     <div className='w-full flex flex-col gap-2'>
       <div className='flex items-center justify-between'>
         <h6 className='uppercase mb-2'>{t('vulnerabilities')}</h6>
-        <Tags color='sky' message={vulnerabilities.length.toString()} />
+        <Tags
+            color={
+             vulnerabilities.length === 0
+                ? 'green'
+                :vulnerabilities.length <= 10
+                ? 'yellow'
+                :vulnerabilities.length <= 20
+                ? 'orange'
+                : 'red'
+            }
+            message={vulnerabilities.length.toString()}
+          />
       </div>
 
       <Vulnerabilities vulnerabilities={vulnerabilities} />
