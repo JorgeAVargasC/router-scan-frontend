@@ -2,6 +2,7 @@
 import { allScansState } from '@/contexts'
 
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import PropTypes from 'prop-types'
 import { useRecoilState } from 'recoil'
@@ -12,11 +13,12 @@ import { useScanServices } from '../hooks'
 
 import { GeneralInfoSection } from './GeneralInfoSection'
 import { VulnerabilitiesSection } from './VulnerabilitiesSection'
-import { useTranslation } from 'react-i18next'
 
 export const AllScan = () => {
   const [allScans, setScans] = useRecoilState(allScansState)
-  const { getAllScans,loadingAllScans } = useScanServices()
+  const { getAllScans, loadingAllScans } = useScanServices()
+
+  console.log(allScans)
 
   useEffect(() => {
     getAllScans()
@@ -26,22 +28,33 @@ export const AllScan = () => {
     }
   }, [])
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const sections = allScans?.map((scan, index) => ({
     title: scan.vendor,
     children: <ResumeSection key={index} scan={scan} />,
     tags: [
-      <Tags 
-        key={index}
-        color='gray'
-        message={scan?.connection?.isp.toString()}
-      />,
-      <Tags
-        key={index}
-        color='sky'
-        message={scan?.vulnerabilities.length.toString()}
-      />,
+      <div key={index} className='overflow-x-auto w-[80px] md:w-full'>
+        <div className='flex w-max gap-2'>
+          <Tags color='sky' message={scan?.connection?.isp.toString()} />
+          <Tags
+            color='gray'
+            message={scan?.timezone.current_time.split('T')[0]}
+          />
+          <Tags
+            color={
+              scan?.vulnerabilities.length === 0
+                ? 'green'
+                : scan?.vulnerabilities.length <= 10
+                ? 'yellow'
+                : scan?.vulnerabilities.length <= 20
+                ? 'orange'
+                : 'red'
+            }
+            message={scan?.vulnerabilities.length.toString()}
+          />
+        </div>
+      </div>,
     ],
     icon: 'router',
   }))
@@ -56,7 +69,9 @@ export const AllScan = () => {
             <p>{t('noResults')}</p>
           ) : (
             <>
-              <span className='mb-4'>{`${allScans?.length || 0} ${t('results')}`}</span>
+              <span className='mb-4'>{`${allScans?.length || 0} ${t(
+                'results'
+              )}`}</span>
               <Accordion sections={sections} />
             </>
           )}

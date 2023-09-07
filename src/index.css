@@ -75,7 +75,8 @@ small {
 /* Scroll Bar */
 
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 8px;
+  height: 8px;
   background: transparent;
 }
 

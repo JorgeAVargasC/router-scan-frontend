@@ -1,5 +1,6 @@
 import { i18nState } from '@/contexts/i18n.context'
 
+import { useEffect } from 'react'
 import { initReactI18next } from 'react-i18next'
 
 import i18next from 'i18next'
@@ -31,5 +32,33 @@ export default function App() {
       },
     })
 
-  return <AppRoutes />
+  const googleTranslateElementInit = () => {
+    new window.google.translate.TranslateElement(
+      {
+        pageLanguage: 'es',
+        // eslint-disable-next-line no-undef
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        includedLanguages: 'en,es,pt',
+        autoDisplay: false,
+        multilanguagePage: true,
+      },
+      'google_translate_element'
+    )
+  }
+
+  useEffect(() => {
+    var addScript = document.createElement('script')
+    addScript.setAttribute(
+      'src',
+      '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'
+    )
+    document.body.appendChild(addScript)
+    window.googleTranslateElementInit = googleTranslateElementInit
+  }, [])
+
+  return (
+    <>
+      <AppRoutes />
+    </>
+  )
 }
