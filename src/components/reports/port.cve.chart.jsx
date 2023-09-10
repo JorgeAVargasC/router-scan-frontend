@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 
-import { getReportsVendorCVE } from '@/services'
+import { gerReportsPortCVE } from '@/services'
 
-export const VendorCVEChart = () => {
+export const PortCVEChart = () => {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
@@ -25,7 +25,7 @@ export const VendorCVEChart = () => {
       },
       title: {
         display: true,
-        text: 'Fabricantes vs Vulnerabilidades',
+        text: 'Puerto vs Vulnerabilidades',
         color: '#fff',
       },
     },
@@ -78,7 +78,7 @@ export const VendorCVEChart = () => {
   }
 
   useEffect(() => {
-    getReportsVendorCVE()
+    gerReportsPortCVE()
       .then((res) => {
         setData(res.data)
         setError(null)
@@ -105,7 +105,6 @@ export const VendorCVEChart = () => {
               item.cve_none > 0
           )
           ?.map((item) => item._id),
-
         datasets: [
           {
             label: 'Críticas',

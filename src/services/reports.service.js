@@ -9,3 +9,8 @@ export const getReportsISPCVE = async () => {
   const { data } = await rget('reports/isp/cve')
   return data
 }
+
+export const gerReportsPortCVE = async () => {
+  const { data } = await rget('reports/port/cve')
+  return data
+}

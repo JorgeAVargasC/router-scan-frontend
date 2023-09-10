@@ -107,7 +107,7 @@ export const ISPCVEChart = () => {
           ?.map((item) => item._id),
         datasets: [
           {
-            label: 'Criticas',
+            label: 'Críticas',
             data: data?.map((item) => item.cve_critical),
             backgroundColor: '#dc2626',
             borderColor: '#dc2626',
