@@ -33,7 +33,7 @@ export const ISPCVEChart = () => {
       yAxes: {
         grid: {
           drawBorder: true,
-          color: '#FFFFFF',
+          color: '#4b5563',
         },
         ticks: {
           // beginAtZero: true,
@@ -55,7 +55,7 @@ export const ISPCVEChart = () => {
       xAxes: {
         grid: {
           drawBorder: true,
-          color: '#FFFFFF',
+          color: '#4b5563',
         },
         ticks: {
           // beginAtZero: true,

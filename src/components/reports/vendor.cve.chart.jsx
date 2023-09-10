@@ -33,7 +33,7 @@ export const VendorCVEChart = () => {
       yAxes: {
         grid: {
           drawBorder: true,
-          color: '#FFFFFF',
+          color: '#4b5563',
         },
         ticks: {
           // beginAtZero: true,
@@ -55,7 +55,7 @@ export const VendorCVEChart = () => {
       xAxes: {
         grid: {
           drawBorder: true,
-          color: '#FFFFFF',
+          color: '#4b5563',
         },
         ticks: {
           // beginAtZero: true,
