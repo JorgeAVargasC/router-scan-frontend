@@ -1,6 +1,10 @@
+import { CVEChart } from './cve.chart'
+import { ISPChart } from './isp.chart'
+import { VendorChart } from './vendor.chart'
 import { VendorCVEChart } from './vendor.cve.chart'
 
 import { ISPCVEChart, PortCVEChart } from '.'
+import { IPChart } from './ip.chart'
 
 export const Reports = () => {
   return (
@@ -8,9 +12,11 @@ export const Reports = () => {
       <VendorCVEChart />
       <ISPCVEChart />
       <PortCVEChart />
-      {/* <VendorCVEChart /> */}
-      {/* <VendorCVEChart /> */}
-      {/* <VendorCVEChart /> */}
+
+      <CVEChart />
+      <ISPChart />
+      <VendorChart />
+      <IPChart />
     </div>
   )
 }

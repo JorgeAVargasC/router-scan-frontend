@@ -147,7 +147,6 @@ export const PortCVEChart = () => {
 
   return (
     <div className='grid place-items-center p-5 border rounded-lg min-h-[600px]'>
-      {!!error && <p>{error}</p>}
       {loading ? (
         <svg className='animate-spin h-10 w-10 text-white' viewBox='0 0 24 24'>
           <circle
@@ -165,7 +164,13 @@ export const PortCVEChart = () => {
           />
         </svg>
       ) : (
-        <>{chartData && <Bar options={options} data={chartData} />}</>
+        <>
+          {chartData ? (
+            <Bar options={options} data={chartData} />
+          ) : (
+            <p>{`${error}`}</p>
+          )}
+        </>
       )}
     </div>
   )

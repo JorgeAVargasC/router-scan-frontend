@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 
-import { getReportsISPCVE } from '@/services'
+import { getReportsVendor } from '@/services'
 
-export const ISPCVEChart = () => {
+export const VendorChart = () => {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const [error, setError] = useState(null)
   const [chartData, setChartData] = useState(null)
+  const [count, setCount] = useState(0)
 
   const options = {
     responsive: true,
@@ -25,7 +26,7 @@ export const ISPCVEChart = () => {
       },
       title: {
         display: true,
-        text: 'Proveedores de internet vs Vulnerabilidades',
+        text: 'Fabricantes',
         color: '#fff',
       },
     },
@@ -78,9 +79,10 @@ export const ISPCVEChart = () => {
   }
 
   useEffect(() => {
-    getReportsISPCVE()
+    getReportsVendor()
       .then((res) => {
         setData(res.data)
+        setCount(res.count)
         setError(null)
       })
       .catch((err) => {
@@ -95,46 +97,13 @@ export const ISPCVEChart = () => {
     if (loading === false && error === null && data.length > 0) {
       console.log(data)
       setChartData({
-        labels: data
-          .filter(
-            (item) =>
-              item.cve_critical > 0 ||
-              item.cve_high > 0 ||
-              item.cve_medium > 0 ||
-              item.cve_low > 0 ||
-              item.cve_none > 0
-          )
-          ?.map((item) => item._id),
+        labels: data?.map((item) => item._id),
         datasets: [
           {
-            label: 'Críticas',
-            data: data?.map((item) => item.cve_critical),
-            backgroundColor: '#dc2626',
-            borderColor: '#dc2626',
-          },
-          {
-            label: 'Altas',
-            data: data?.map((item) => item.cve_high),
-            backgroundColor: '#ea580c',
-            borderColor: '#ea580c',
-          },
-          {
-            label: 'Medias',
-            data: data?.map((item) => item.cve_medium),
-            backgroundColor: '#eab308',
-            borderColor: '#eab308',
-          },
-          {
-            label: 'Bajas',
-            data: data?.map((item) => item.cve_low),
+            label: 'CVE',
+            data: data?.map((item) => item.count),
             backgroundColor: '#0ea5e9',
             borderColor: '#0ea5e9',
-          },
-          {
-            label: 'Desconocidas',
-            data: data?.map((item) => item.cve_none),
-            backgroundColor: '#4b5563',
-            borderColor: '#4b5563',
           },
         ],
       })
@@ -165,8 +134,13 @@ export const ISPCVEChart = () => {
         </svg>
       ) : (
         <>
-          {chartData? (
-            <Bar options={options} data={chartData} />
+          {chartData ? (
+            <div className='flex flex-col h-full w-full'>
+              <p>{`Fabricantes Registrados: ${count}`}</p>
+              <div className='grid h-full w-full'>
+                <Bar options={options} data={chartData} />
+              </div>
+            </div>
           ) : (
             <p>{`${error}`}</p>
           )}
