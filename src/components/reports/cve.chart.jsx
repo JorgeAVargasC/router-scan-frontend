@@ -93,6 +93,20 @@ export const CVEChart = () => {
       })
   }, [])
 
+  const handleColor = (severity) => {
+    if (severity === 'CRITICAL') {
+      return '#dc2626'
+    } else if (severity === 'HIGH') {
+      return '#ea580c'
+    } else if (severity === 'MEDIUM') {
+      return '#eab308'
+    } else if (severity === 'LOW') {
+      return '#0ea5e9'
+    } else if (severity === 'None') {
+      return '#4b5563'
+    }
+  }
+
   useEffect(() => {
     if (loading === false && error === null && data.length > 0) {
       console.log(data)
@@ -102,8 +116,8 @@ export const CVEChart = () => {
           {
             label: 'CVE',
             data: data?.map((item) => item.count),
-            backgroundColor: '#0ea5e9',
-            borderColor: '#0ea5e9',
+            backgroundColor: data?.map((item) => handleColor(item.severity)),
+            borderColor: data?.map((item) => handleColor(item.severity)),
           },
         ],
       })
