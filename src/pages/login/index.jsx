@@ -54,6 +54,7 @@ export default function Login() {
       if (response?.user) {
         // Actualizar el estado del usuario en el contexto de Recoil
         setUser(response.user)
+        localStorage.setItem('user', JSON.stringify(response.user))
         setLoading(false)
         // Mostrar un mensaje de éxito
       } else {

@@ -32,7 +32,7 @@ export const Navbar = () => {
   const navigate = useNavigate()
   // const [, setI18n] = useRecoilState(i18nState)
   return (
-    <nav className='fixed z-50 w-full px-5 min-h-[10vh] bg-slate-950 flex items-center justify-center max-w-[1200px]'>
+    <nav className='fixed z-50 w-full px-5 min-h-[10vh] bg-slate-950 flex items-center justify-center max-w-[1400px]'>
       <div className='w-full justify-between flex'>
         <Link to={LINKS_MAIN.HOME.to}>
           <figure className='flex items-center gap-4'>
@@ -58,6 +58,7 @@ export const Navbar = () => {
                 onClick={() => {
                   setUser(null)
                   navigate(LINKS_MAIN.LOGIN.to)
+                  localStorage.removeItem('user')
                 }}
                 className='text-white bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
               >

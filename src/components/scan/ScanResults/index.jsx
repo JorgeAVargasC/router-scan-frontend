@@ -2,6 +2,7 @@
 import { useState } from 'react'
 
 import { AllScan, Scan, Tabs } from './components'
+import { Reports } from '@/components/reports/reports'
 
 export const ScanResults = () => {
   const [currentView, setCurrentView] = useState(1)
@@ -16,6 +17,8 @@ export const ScanResults = () => {
       {currentView === 1 && <Scan />}
 
       {currentView === 2 && <AllScan />}
+
+      {currentView === 3 && <Reports />}
     </>
   )
 }
