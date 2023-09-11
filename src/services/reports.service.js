@@ -34,3 +34,8 @@ export const getReportsIP = async () => {
   const { data } = await rget('reports/ip')
   return data
 }
+
+export const getReportsIPScanningTime = async () => {
+  const { data } = await rget('reports/ip/scanning_time')
+  return data
+}

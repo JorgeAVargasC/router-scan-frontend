@@ -1,10 +1,11 @@
 import { CVEChart } from './cve.chart'
+import { IPChart } from './ip.chart'
+import { IPScanningTimeChart } from './ip.scanning-time.chart'
 import { ISPChart } from './isp.chart'
 import { VendorChart } from './vendor.chart'
 import { VendorCVEChart } from './vendor.cve.chart'
 
 import { ISPCVEChart, PortCVEChart } from '.'
-import { IPChart } from './ip.chart'
 
 export const Reports = () => {
   return (
@@ -17,6 +18,7 @@ export const Reports = () => {
       <ISPChart />
       <VendorChart />
       <IPChart />
+      <IPScanningTimeChart />
     </div>
   )
 }
