@@ -1,9 +1,11 @@
-import { PropTypes } from 'prop-types'
-
-import { Accordion, Tags } from '@/components/general'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+
+import { PropTypes } from 'prop-types'
+
 import { convertDate } from '@/utils'
+
+import { Accordion, Tags } from '@/components/general'
 
 export const ScanVulnInfo = ({
   cve,
@@ -16,8 +18,7 @@ export const ScanVulnInfo = ({
   published,
   recommendations = [],
 }) => {
-
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const items = [
     { title: 'cve', content: cve },
@@ -26,8 +27,8 @@ export const ScanVulnInfo = ({
     { title: 'cvss', content: cvss },
     { title: 'severity', content: t(severity) },
     { title: 'summary', content: t(summary) },
-    { title: 'modified', content: convertDate(modified,'date time') },
-    { title: 'published', content: convertDate(published, 'date time')},
+    { title: 'modified', content: convertDate(modified, 'date time') },
+    { title: 'published', content: convertDate(published, 'date time') },
     { title: 'recommendations', content: recommendations },
   ]
 
@@ -36,23 +37,17 @@ export const ScanVulnInfo = ({
     children: (
       <div key={index} className='flex flex-col gap-2 text-justify'>
         <div className='flex flex-col gap-1'>
-          <h6 className='uppercase'>
-            {t('prerequisites')}
-          </h6>
+          <h6 className='uppercase'>{t('prerequisites')}</h6>
           <p className='text-slate-400'>{recommendation.prerequisites}</p>
         </div>
 
         <div className='flex flex-col gap-1'>
-          <h6 className='uppercase'>
-            {t('summary')}
-          </h6>
+          <h6 className='uppercase'>{t('summary')}</h6>
           <p className='text-slate-400'>{recommendation.summary}</p>
         </div>
 
         <div className='flex flex-col gap-1'>
-          <h6 className='uppercase'>
-            {t('solutions')}
-          </h6>
+          <h6 className='uppercase'>{t('solutions')}</h6>
           <p className='text-slate-400'>{recommendation.solutions}</p>
         </div>
       </div>
@@ -63,8 +58,9 @@ export const ScanVulnInfo = ({
   return (
     <div className='grid grid-cols-2 gap-x-5 gap-y-8'>
       {items.map((item, index) => (
-        <React.Fragment key={index}  >
-          {t(item.title) === 'Recommendations' || t(item.title) === 'Recomendaciones' ? (
+        <React.Fragment key={index}>
+          {t(item.title) === 'Recommendations' ||
+          t(item.title) === 'Recomendaciones' ? (
             <div className='flex flex-col gap-4 col-span-2'>
               <div className=' flex items-center justify-between'>
                 <div className='uppercase font-bold'>{t(item.title)}</div>
@@ -78,7 +74,9 @@ export const ScanVulnInfo = ({
             <div
               key={index}
               className={`${
-                t(item.title) === 'Summary' || t(item.title) === 'Resúmen' ? 'col-span-2' : ''
+                t(item.title) === 'Summary' || t(item.title) === 'Resúmen'
+                  ? 'col-span-2'
+                  : ''
               } flex flex-col border-b pb-2 border-slate-700`}
             >
               <div className='uppercase font-bold'>{t(item.title)}</div>

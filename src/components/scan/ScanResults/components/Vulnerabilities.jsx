@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Pie } from 'react-chartjs-2'
 import { useTranslation } from 'react-i18next'
 
 import PropTypes from 'prop-types'
@@ -33,12 +34,78 @@ export const Vulnerabilities = ({ vulnerabilities }) => {
     icon: 'info',
   }))
 
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          color: '#fff',
+        },
+      },
+      title: {
+        display: true,
+        text: 'Vulnerabilidades',
+        color: '#fff',
+      },
+    },
+  }
+
+  const dataInfo = [
+    {
+      count: vulnerabilities.filter((vuln) => vuln.severity === 'CRITICAL')
+        .length,
+      severity: 'CRITICAL',
+      color: '#dc2626',
+    },
+    {
+      count: vulnerabilities.filter((vuln) => vuln.severity === 'HIGH').length,
+      severity: 'HIGH',
+      color: '#ea580c',
+    },
+    {
+      count: vulnerabilities.filter((vuln) => vuln.severity === 'MEDIUM')
+        .length,
+      severity: 'MEDIUM',
+      color: '#eab308',
+    },
+    {
+      count: vulnerabilities.filter((vuln) => vuln.severity === 'LOW').length,
+      severity: 'LOW',
+      color: '#0ea5e9',
+    },
+    {
+      count: vulnerabilities.filter((vuln) => vuln.severity === 'None').length,
+      severity: 'None',
+      color: '#4b5563',
+    },
+  ].sort((a, b) => b.count - a.count)
+
+  const data = {
+    labels: dataInfo.map((item) => t(item.severity)),
+    datasets: [
+      {
+        label: '# de Vulnerabilidades',
+        data: dataInfo.map((item) => item.count),
+        backgroundColor: dataInfo.map((item) => item.color),
+        borderColor: dataInfo.map((item) => item.color),
+        borderWidth: 1,
+      },
+    ],
+  }
+
   return (
     <div className='w-full'>
       {vulnerabilities.length === 0 ? (
         <p>{t('noVulnerabilities')}</p>
       ) : (
-        <Accordion sections={sections} />
+        <>
+          <div className='grid place-items-center max-h-[350px] h-[350px] border mb-5 p-5 rounded-md'>
+            <Pie options={options} data={data} />
+          </div>
+
+          <Accordion sections={sections} />
+        </>
       )}
     </div>
   )

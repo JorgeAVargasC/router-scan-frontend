@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import {
+  ArcElement,
   BarElement,
   CategoryScale,
   Chart as ChartJS,
@@ -17,6 +18,7 @@ export const useReactCharts = () => {
   useEffect(() => {
     ChartJS.register(
       BarElement,
+      ArcElement,
       CategoryScale,
       Filler,
       Legend,
