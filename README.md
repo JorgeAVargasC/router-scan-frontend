@@ -63,3 +63,7 @@ The project includes the following files and directories:
 * `src/assets/logos/`: The logos directory.
 * `src/assets/videos/`: The videos directory.
 * `src/data/`: The examples data directory
+
+### License
+
+The Frontend is licensed under the MIT license.
