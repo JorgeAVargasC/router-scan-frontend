@@ -1,6 +1,6 @@
  ## Router Scan Frontend
 
-This is a boilerplate for creating a React application using Vite.js and TypeScript. It includes everything you need to get started, including a basic file structure, a development server, and a build script.
+This is a frontend project connected to [Router Scan Backend](https://github.com/JorgeAVargasC/router-scan-backend)
 
 ### Prerequisites
 
