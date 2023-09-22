@@ -1,6 +1,6 @@
 import { userState } from '@/contexts/auth.context'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -17,7 +17,6 @@ export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
 
   // Manejador de evento para el campo de correo electrónico
@@ -37,74 +36,33 @@ export default function Register() {
   // Manejador de evento para el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // Aquí puedes realizar acciones como enviar los datos al servidor
-    // o realizar validaciones
     setLoading(true)
     try {
-      // Llamar al servicio de inicio de sesión
-      toast.promise(
-        serviceRegister({
-          name,
-          email,
-          password,
-        }),
-        {
-          pending: 'Registrando usuario...',
-          success: 'Usuario registrado correctamente',
-          error: 'Error al registrar usuario',
-        }
-      )
-      const { message } = await serviceRegister({
+      
+      const {message} = await serviceRegister({
         name,
         email,
         password,
       })
-      console.log(message)
-      setSuccess(true)
-    } catch (error) {
-      setLoading(false)
-      // Manejar errores de inicio de sesión
-      console.error('Error al iniciar sesión:', error)
-      toast.error(error.response.data.error)
-    }
-  }
 
-  const login = async () => {
-    toast.promise(
-      serviceLogin({
+      console.log(message)
+
+      const { user } = await serviceLogin({
         email,
         password,
-      }),
-      {
-        pending: 'Iniciando sesión...',
-        success: 'Sesión iniciada correctamente',
-        error: 'Error al iniciar sesión',
-      }
-    )
+      })
 
-    const response2 = await serviceLogin({
-      email,
-      password,
-    })
+      toast.success(`Bienvenido, ${user.name}!`)
 
-    // Comprobar si la respuesta contiene el token de autenticación u otros datos necesarios
-    if (response2?.user) {
-      // Actualizar el estado del usuario en el contexto de Recoil
-      setUser(response2.user)
+      localStorage.setItem('user', JSON.stringify(user))
+
+      setUser(user)
       setLoading(false)
-      // Mostrar un mensaje de éxito
-    } else {
-      // Mostrar un mensaje de error si la respuesta no contiene el token
-      console.error('Error al iniciar sesión')
+    } catch (error) {
+      setLoading(false)
     }
   }
 
-  useEffect(() => {
-    if (success) {
-      login()
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [success])
 
   return (
     <div className='min-h-full grid place-items-center flex-1'>
@@ -164,13 +122,34 @@ export default function Register() {
           </div>
 
           {loading ? (
-            <div className='text-white min-w-full bg-slate-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
-              Cargando
+            <div className='text-white grid place-items-center min-w-full bg-slate-800 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center'>
+              {/* spin loader */}
+              <svg
+                className='animate-spin h-5 w-5 text-white'
+                viewBox='0 0 24 24'
+              >
+                <circle
+                  className='opacity-25'
+                  cx='12'
+                  cy='12'
+                  r='10'
+                  stroke='currentColor'
+                  strokeWidth='4'
+                />
+                <path
+                  className='opacity-75'
+                  fill='currentColor'
+                  d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z'
+                />
+              </svg>
+
+
+
             </div>
           ) : (
             <button
-              type='submit'
-              className='text-white min-w-full bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
+            type='submit'
+            className='text-white min-w-full bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
             >
               Registrarse
             </button>

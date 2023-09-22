@@ -3,7 +3,7 @@
 import { userState } from '@/contexts/auth.context'
 
 import { useTranslation } from 'react-i18next'
-import { TbRouter } from 'react-icons/tb'
+import { TbLogout, TbRouter } from 'react-icons/tb'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useRecoilState } from 'recoil'
@@ -32,7 +32,7 @@ export const Navbar = () => {
   const navigate = useNavigate()
   // const [, setI18n] = useRecoilState(i18nState)
   return (
-    <nav className='fixed z-50 w-full px-5 min-h-[10vh] bg-slate-950 flex items-center justify-center max-w-[1400px]'>
+    <nav className='fixed z-50 w-full px-5 min-h-[80px] bg-slate-950 flex items-center justify-center max-w-[1400px]'>
       <div className='w-full justify-between flex'>
         <Link to={LINKS_MAIN.HOME.to}>
           <figure className='flex items-center gap-4'>
@@ -51,7 +51,7 @@ export const Navbar = () => {
               {t(link.label)}
             </Link>
           ))} */}
-          <div className='flex gap-4 items-center '>
+          <div className='flex gap-2 items-center '>
             {user && (
               <button
                 type='submit'
@@ -60,9 +60,9 @@ export const Navbar = () => {
                   navigate(LINKS_MAIN.LOGIN.to)
                   localStorage.removeItem('user')
                 }}
-                className='text-white bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
+                className='text-white bg-sky-500 hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto p-1 text-center dark:bg-sky-500 dark:hover:bg-sky-500 dark:focus:ring-sky-500'
               >
-                Cerrar Sesión
+                <TbLogout size={20} />
               </button>
             )}
 

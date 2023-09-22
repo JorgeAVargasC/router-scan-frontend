@@ -60,7 +60,7 @@ export const AppRoutes = () => {
             element={
               <Suspense
                 fallback={
-                  <div className='min-h-[88vh] grid place-items-center w-full'>
+                  <div className='min-h-[70vh] grid place-items-center w-full'>
                     <Loading />
                   </div>
                 }
